@@ -1,0 +1,10 @@
+---
+title: "Social Justice in Statistics: What Are We 'Controlling' For?"
+author: "Allison Theobold"
+date: "October 22, 2017"
+output: pdf_document
+---
+
+# Abstract  
+
+While we as statisticians and mathematical modelers are often well-intentioned, the underlying conceptual framework of our statistical models do not always get us closer to understanding the truth. This stems from the fact that the common approach, handed down through generations, to many statistical analyses is to include variables we wish to "control for," thus resulting in circular conclusions that merely reinforce the idea of racial/ethnic/gender differences in education, health, employment, incarceration, etc. In this group discussion, I will present a variety of often used statistical models suffering from the illnesses described above. As a group we will discuss the implications of the statistical models, the unmeasured confounding variables, the circular conclusions at work in the model findings, and methods we can use to move away from describing racial/ethnic/gender differences and closer to eradicating them. 

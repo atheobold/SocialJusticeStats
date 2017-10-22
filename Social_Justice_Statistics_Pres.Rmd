@@ -1,0 +1,52 @@
+---
+title: "Social Justice in Statistics, Moving Forward"
+author: "Allison Theobold"
+date: "October 23, 2017"
+output:
+  ioslides_presentation:
+    incremental: TRUE
+    fig_width: 3
+    fig_height: 10
+---
+
+
+# Does Social Justice Have a Place in Statistics?  
+
+Social justice is a concept of _fair_ and _just_ relations between the individual and society.  
+
+The concept of social justice has often referred to the process of _ensuring_ that individuals receive what is their due from society.
+
+# Circularity  
+
+## The efforts to understand social factors have the effect of emphasizing racial/ethnic/gender differences  
+
+# Modeling Child IQ  
+
+```{r, echo = FALSE, fig.width = 8, fig.height = 6}
+library(foreign)
+library(pander)
+
+kidiq <- read.dta("kidiq.dta")
+
+fit.3 <- lm(kid_score ~ mom_hs* mom_iq, data = kidiq)
+
+colors <- ifelse(kidiq$mom_hs == 1, "black", "gray")
+
+par(mfrow = c(1, 1))
+plot (kidiq$mom_iq, kidiq$kid_score, xlab = "Mother IQ score", ylab="Child test score", 
+      col = colors, pch = 20)
+curve (cbind (1, 1, x, 1*x) %*% coef(fit.3), add = TRUE, col = "black")
+curve (cbind (1, 0, x, 0*x) %*% coef(fit.3), add = TRUE, col = "gray")
+
+pander(summary(fit.3))
+
+```
+
+# Modeling Achievement  
+
+## If our goal is to increase a child's achievement then we must focus on contextual factors that we can plausibly manipulate (e.g. discrimination, education, pollution, socioeconomic status, etc.) unlike gender and race.  
+
+# Model Construction Best Practices  
+
+## Modelling measures should reflect the construct of interest (e.g. years of schooling $\neq$ education if quality of education differs)
+
