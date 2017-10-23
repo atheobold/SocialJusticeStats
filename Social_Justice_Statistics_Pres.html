@@ -150,6 +150,80 @@
 <li><p><strong>How is circularity at play in these factors?</strong></p></li>
 </ul>
 
+</article></slide><slide class=''><hgroup><h2>Earnings</h2></hgroup><article  id="earnings">
+
+<p><em>Survey of American Adults in 1990, Gelman et. al:</em></p>
+
+<pre >## lm(formula = log(earn) ~ height + eth + female, data = heights.clean)</pre>
+
+<table class = 'rmdtable'>
+<col width="25%" />
+<col width="15%" />
+<col width="18%" />
+<col width="13%" />
+<col width="15%" />
+<tr class="header">
+<th align="center"> </th>
+<th align="center">Estimate</th>
+<th align="center">Std. Error</th>
+<th align="center">t value</th>
+<th align="center">Pr(&gt;|t|)</th>
+</tr>
+<tr class="odd">
+<td align="center"><strong>(Intercept)</strong></td>
+<td align="center">8.479</td>
+<td align="center">0.6661</td>
+<td align="center">12.73</td>
+<td align="center">1.214e-34</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>height</strong></td>
+<td align="center">0.01461</td>
+<td align="center">0.01021</td>
+<td align="center">1.432</td>
+<td align="center">0.1526</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>ethhispanic</strong></td>
+<td align="center">-0.1234</td>
+<td align="center">0.1444</td>
+<td align="center">-0.8544</td>
+<td align="center">0.3931</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>ethother</strong></td>
+<td align="center">0.1509</td>
+<td align="center">0.2102</td>
+<td align="center">0.7175</td>
+<td align="center">0.4732</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>ethwhite</strong></td>
+<td align="center">0.1075</td>
+<td align="center">0.09261</td>
+<td align="center">1.161</td>
+<td align="center">0.2459</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>female</strong></td>
+<td align="center">-0.4543</td>
+<td align="center">0.07862</td>
+<td align="center">-5.779</td>
+<td align="center">9.897e-09</td>
+</tr>
+</table>
+
+</article></slide><slide class=''><hgroup><h2>Achievement Impacts</h2></hgroup><article  id="achievement-impacts-1">
+
+<img src='data:image/jpeg;base64,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' title='fig:'/>
+
+</article></slide><slide class=''><hgroup><h2>Modeling Shortfalls</h2></hgroup><article  id="modeling-shortfalls-1">
+
+<ul class = 'build'>
+<li><p><strong>What social factors that impact a child&#39;s achievement are absent from this statistical model?</strong></p></li>
+<li><p><strong>How is circularity at play in these factors?</strong></p></li>
+</ul>
+
 </article></slide><slide class=''><hgroup><h2>Modeling Achievement</h2></hgroup><article  id="modeling-achievement">
 
 <h3>If our goal is to increase a child&#39;s achievement then we must focus on contextual factors that we can plausibly manipulate (e.g. discrimination, education, pollution, socioeconomic status, etc.) unlike gender and race.</h3>

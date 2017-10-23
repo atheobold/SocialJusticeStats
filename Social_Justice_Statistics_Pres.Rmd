@@ -10,6 +10,56 @@ output:
 header_includes: \usepackage{multicol}    
 ---
 
+```{r setup, include = FALSE, echo = FALSE}
+knitr::opts_chunk$set(warning = FALSE)
+knitr::opts_chunk$set(message = FALSE)
+
+library(grid)
+library(gridExtra)
+library(pander)
+library(dplyr)
+library(ggplot2)
+library(effects)
+library(ggfortify)
+library(parallel)
+
+panderOptions('missing', "-")
+
+pander_lm <-function (fit, ...)
+{
+  fit.sum <- summary(fit)
+  fit.coef <- fit.sum$coefficients
+  fit.ttable <- matrix(nrow=length(fit.sum$aliased), ncol=4)
+  colnames(fit.ttable) <- colnames(fit.sum$coefficients)
+  rownames(fit.ttable) <- names(fit.sum$aliased)
+
+  notna <- as.vector(which(!fit.sum$aliased))
+  fit.ttable[notna,] <- fit.coef
+  fit.ttable <- as.data.frame(fit.ttable)
+  fit.ttable$`Pr(>|t|)` <- ifelse(fit.ttable$`Pr(>|t|)` < 0.0001, "<0.0001",
+                                     sprintf("%.4f", fit.ttable$`Pr(>|t|)`))
+  
+
+  pander(fit.ttable, ...)
+}
+
+pander_anova <-function (fit, ...)
+{
+  fit.anova <- Anova(fit)
+  fit.anova$`Pr(>F)` <- ifelse(fit.anova$`Pr(>F)` < 0.0001, "<0.0001",
+                                  sprintf("%.4f", fit.anova$`Pr(>F)`))
+
+pander(fit.anova, ...)
+}
+
+clust <- makeCluster(detectCores())
+
+# Set seeds for cores (runs will always be the same).
+clusterSetRNGStream(clust, 1800)
+
+# Set seed for regular random number generation (for the non-parallel stuff)
+set.seed(1800)
+```
 
 ##  Does Social Justice Have a Place in Statistics?  
 
@@ -91,7 +141,48 @@ hist(schools.sim$tau, nclass = 100, col = gray(0.8), freq = FALSE, xlab = expres
 
 * __What social factors that impact a child's achievement are absent from this statistical model?__  
 
-* __How is circularity at play in these factors?__  
+* __How is circularity at play in these factors?__   
+
+## Earnings  
+
+_Survey of American Adults in 1990, Gelman et. al:_  
+
+```{r, echo = FALSE}
+library(foreign)
+heights <- read.dta("heights.dta")
+
+heights2 <- subset(heights, !is.na(log(earn)))
+
+heights2$age <- 90 - heights2$yearbn                     # survey was conducted in 1990
+heights2$age[heights2$age < 18] <- NA
+
+heights2$eth <- ifelse(heights2$race == 2, "black", 
+                       ifelse(heights2$hisp == 1, "hispanic", 
+                              ifelse(heights2$race == 1, "white", 
+                                     "other")))
+heights2$female <- heights2$sex - 2
+
+attach(heights2)
+
+ok <- !is.na(earn+height+sex) & earn > 0  & yearbn > 25
+
+heights.clean <- heights2[ok,]
+
+M1 <- lm(log(earn) ~ height + eth + female, data = heights.clean)
+
+summary(M1)$call
+pander(summary(M1)$coefficients)
+```
+
+## Achievement Impacts  
+
+![](name_job.jpg)
+
+## Modeling Shortfalls  
+
+* __What social factors that impact a child's achievement are absent from this statistical model?__  
+
+* __How is circularity at play in these factors?__   
 
 ## Modeling Achievement  
 
